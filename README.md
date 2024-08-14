@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # Code_Alpha-Task-1
->>>>>>> cf20c989346b909bf07d13657e9a82600dd65e01
+
 E-commerce Store 
 ## Description
 This project is a solution to the first task of the Alpha Code series. It involves developing a basic e-commerce website using Django, allowing users to browse products, add items to their cart, and proceed with the checkout process.
