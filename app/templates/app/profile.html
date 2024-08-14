@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <h3>Welcome <span class="text-capitalize">{{ request.user.username }}</span></h3>
+    
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address' %}" class="btn">Address</a></li>
+            </ul>
+        </div>
+
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
+                    <small class="text-danger">{{ form.name.errors|striptags }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="locality" class="form-label">Locality</label>
+                    <input type="text" class="form-control" id="locality" name="locality" value="{{ user.locality }}" required>
+                    <small class="text-danger">{{ form.locality.errors|striptags }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city" value="{{ user.city }}" required>
+                    <small class="text-danger">{{ form.city.errors|striptags }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile</label>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" value="{{ user.mobile }}" required>
+                    <small class="text-danger">{{ form.mobile.errors|striptags }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <select class="form-select" id="state" name="state" required>
+                        <option value="">Select a State</option>
+                        {% for state in form.fields.state.choices %}
+                            <option value="{{ state.0 }}" {% if state.0 == user.state %}selected{% endif %}>{{ state.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-danger">{{ form.state.errors|striptags }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="zipcode" class="form-label">Zip Code</label>
+                    <input type="text" class="form-control" id="zipcode" name="zipcode" value="{{ user.zipcode }}" required>
+                    <small class="text-danger">{{ form.zipcode.errors|striptags }}</small>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger my-3">
+                        {{ form.non_field_errors|striptags }}
+                    </div>
+                {% endif %}
+
+                {% if messages %}
+                    {% for msg in messages %}
+                        <div class="alert alert-{{ msg.tags }}" role="alert">
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </form> 
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
+

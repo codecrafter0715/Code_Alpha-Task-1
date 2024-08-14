@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Payment{% endblock title %}
+
+{% block main-content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Payment Information</h2>
+    <form action="{% url 'process_payment' %}" method="POST">
+        {% csrf_token %}
+        
+        <!-- Hidden input for order ID -->
+        <input type="hidden" name="order_id" value="{{ order.id }}">
+        
+        <!-- Payment method selection -->
+        <div class="form-group mb-3">
+            <label for="payment-method">Payment Method:</label>
+            <select id="payment-method" name="payment_method" class="form-control">
+                <option value="bank_transfer">Bank Transfer</option>
+                <!-- Add other methods if needed -->
+            </select>
+        </div>
+        
+        <!-- Payment details -->
+        <div id="payment-details" class="form-group mb-3">
+            <label for="transaction-id">Transaction ID (for Bank Transfer):</label>
+            <input type="text" id="transaction-id" name="transaction_id" class="form-control" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit Payment</button>
+    </form>
+</div>
+{% endblock main-content %}
